@@ -31,7 +31,7 @@ controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
 
-controller.on('message_received', function(bot, message) {
+controller.hears([".*"], 'message_received', function(bot, message) {
     console.log("››››› Message received: %j", message);
     if(message.text && message.text.toLowerCase().indexOf("chuck norris") > -1) {
         request.get({url: "http://api.icndb.com/jokes/random", json: true}, function(err, response, body) {
@@ -52,9 +52,9 @@ controller.hears(['hello', 'hi'], ['direct_message'], function (bot, message) {
   bot.reply(message, 'It\'s nice to talk to you directly.')
 })
 
-controller.hears('.*', ['mention'], function (bot, message) {
-  bot.reply(message, 'Awwe, you really _do_ care about me. :heart:')
-})
+// controller.hears('.*', ['mention'], function (bot, message) {
+//   bot.reply(message, 'Awwe, you really _do_ care about me. :heart:')
+// })
 
 controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
   var help = 'I will respond to the following messages: \n' +
@@ -84,6 +84,6 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
   })
 })
 
-controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
-  bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
-})
+// controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
+//   bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
+// })
