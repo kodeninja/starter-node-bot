@@ -1,4 +1,5 @@
-var Botkit = require('botkit')
+var Botkit = require('botkit'),
+    request = require("request");
 
 var token = process.env.SLACK_TOKEN
 
@@ -29,6 +30,17 @@ if (token) {
 controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
+
+controller.on('message_received', function(bot, message) {
+    if(message && message.toLowerCase().indexOf("chuck norris") > -1) {
+        request.get({url: "http://api.icndb.com/jokes/random", json: true}, function(err, response, body) {
+            if(!err && body.type === "success") {
+                console.log("››››› Sending Chuck Norris joke with id: %s ‹‹‹‹‹", body.value.id);
+                bot.reply(message, body.value.joke);
+            }
+        });
+    }
+});
 
 controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
   bot.reply(message, 'Hello.')
