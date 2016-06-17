@@ -37,7 +37,7 @@ controller.hears([".*"], 'ambient', function(bot, message) {
         request.get({url: "http://api.icndb.com/jokes/random", json: true}, function(err, response, body) {
             if(!err && body.type === "success") {
                 console.log("››››› Sending Chuck Norris joke with id: %s ‹‹‹‹‹", body.value.id);
-                bot.reply(message, body.value.joke);
+                bot.reply(message, ">" + body.value.joke);
             }
         });
     }
