@@ -32,7 +32,7 @@ controller.on('bot_channel_join', function (bot, message) {
 })
 
 controller.on('message_received', function(bot, message) {
-    if(message && message.toLowerCase().indexOf("chuck norris") > -1) {
+    if(message.text && message.text.toLowerCase().indexOf("chuck norris") > -1) {
         request.get({url: "http://api.icndb.com/jokes/random", json: true}, function(err, response, body) {
             if(!err && body.type === "success") {
                 console.log("››››› Sending Chuck Norris joke with id: %s ‹‹‹‹‹", body.value.id);
